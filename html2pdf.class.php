@@ -1377,7 +1377,7 @@ if (!defined('__CLASS_HTML2PDF__')) {
             }
 
             // if the image can not be put on the current page
-            if (($y + $h>$this->pdf->getH() - $this->pdf->getbMargin()) && !$this->_isInOverflow) {
+            if (($y + $h>$this->pdf->getH() - $this->pdf->getbMargin()) && !$this->_isInOverflow && !$this->_isInFooter) {
                 // new page
                 $this->_setNewPage();
 
@@ -2621,7 +2621,8 @@ if (!defined('__CLASS_HTML2PDF__')) {
             // if the content does not fit on the page => new page
             if (
                 $sub->_maxY < ($this->pdf->getH() - $this->pdf->gettMargin()-$this->pdf->getbMargin()) &&
-                $y + $sub->_maxY>=($this->pdf->getH() - $this->pdf->getbMargin())
+                $y + $sub->_maxY>=($this->pdf->getH() - $this->pdf->getbMargin()) &&
+                !$this->_isInFooter
             ) {
                 $this->_setNewPage();
             }
@@ -2766,7 +2767,8 @@ if (!defined('__CLASS_HTML2PDF__')) {
                 if (
                         ($h < ($this->pdf->getH() - $this->pdf->gettMargin()-$this->pdf->getbMargin())) &&
                         ($this->pdf->getY() + $h>=($this->pdf->getH() - $this->pdf->getbMargin())) &&
-                        !$this->_isInOverflow
+                        !$this->_isInOverflow &&
+                        !$this->_isInFooter
                     )
                     $this->_setNewPage();
 
@@ -5969,7 +5971,8 @@ if (!defined('__CLASS_HTML2PDF__')) {
                 if (
                         ($h < ($this->pdf->getH() - $this->pdf->gettMargin()-$this->pdf->getbMargin())) &&
                         ($this->pdf->getY() + $h>=($this->pdf->getH() - $this->pdf->getbMargin())) &&
-                        !$this->_isInOverflow
+                        !$this->_isInOverflow &&
+                        !$this->_isInFooter
                     )
                     $this->_setNewPage();
 
